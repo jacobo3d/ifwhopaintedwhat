@@ -20,7 +20,7 @@ def allowed_file(filename):
 def index():
   return render_template('index.html')
 
-@app.route("/stylize", methods=['POST']):
+@app.route("/stylize", methods=['POST'])
     styler = new Styler_Class()
     styler.spawnImages()
 
