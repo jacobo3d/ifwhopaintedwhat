@@ -1,2 +1,4 @@
 #Neural Style
 torch/
+uploads/*
+output/*
