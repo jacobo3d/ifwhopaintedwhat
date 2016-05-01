@@ -1,10 +1,11 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.4
 
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
-from wand.image import Image
-from wand.display import display
-import os
+# from wand.image import Image
+# from wand.display import display
+# import os
+from styler import Styler_Class
 
 UPLOAD_FOLDER = '/home/cbobco/src/ifwhopaintedwhat/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -21,14 +22,15 @@ def index():
   return render_template('index.html')
 
 @app.route("/stylize", methods=['POST'])
-    styler = new Styler_Class()
+def stylize():
+    styler = Styler_Class()
     styler.spawnImages()
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    img = Image(request.files['file'])
-    img.format='png'
-    img.save(os.path.join(app.config['UPLOAD_FOLDER'], "background.png"))
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     # img = Image(request.files['file'])
+#     # img.format='png'
+#     # img.save(os.path.join(app.config['UPLOAD_FOLDER'], "background.png"))
     # file = request.files['file']
     # if file and allowed_file(file.filename):
     #     filename = secure_filename(file.filename)
