@@ -26,18 +26,18 @@ def stylize():
     styler = Styler_Class()
     styler.spawnImages()
 
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-#     # img = Image(request.files['file'])
-#     # img.format='png'
-#     # img.save(os.path.join(app.config['UPLOAD_FOLDER'], "background.png"))
-    # file = request.files['file']
-    # if file and allowed_file(file.filename):
-    #     filename = secure_filename(file.filename)
-    #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    #     print('here')
-    #     return redirect(url_for('uploaded_file',
-    #                             filename=filename))
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # img = Image(request.files['file'])
+    # img.format='png'
+    # img.save(os.path.join(app.config['UPLOAD_FOLDER'], "background.png"))
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print('here')
+        return redirect(url_for('uploaded_file',
+                                filename=filename))
         
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
