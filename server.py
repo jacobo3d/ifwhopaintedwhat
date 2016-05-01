@@ -2,13 +2,13 @@
 
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
-# from wand.image import Image
+from wand.image import Image
 # from wand.display import display
-# import os
+import os
 from styler import Styler_Class
 
-UPLOAD_FOLDER = '/home/cbobco/src/ifwhopaintedwhat/uploads/'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+UPLOAD_FOLDER = os.getcwd() + "/uploads/"
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -27,23 +27,14 @@ def stylize():
     styler.spawnImages()
 
 @app.route('/upload', methods=['POST'])
-def upload_file():
-    # img = Image(request.files['file'])
-    # img.format='png'
-    # img.save(os.path.join(app.config['UPLOAD_FOLDER'], "background.png"))
-    file = request.files['file']
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        print('here')
-        return redirect(url_for('uploaded_file',
-                                filename=filename))
-        
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-
+def upload():
+    upload_types = ["content_image", "style_image"]
+    for upload_type in upload_types:
+        file = request.files[upload_type]
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            os.rename("uploads/" + filename, "uploads/" + upload_type.split("_")[0] + ".jpg")
 
 if __name__ == '__main__':
     app.run(
