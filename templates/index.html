@@ -7,18 +7,17 @@
 </header>
 
 <div class="upload_container">
-<form action="upload" method="post" enctype="multipart/form-data">
-	<span class="upload_container content">
-		<label>Content Image</label>
+<form target="templates/index.html" action="stylize" method="post" enctype="multipart/form-data">
+	<span class="upload_container content" style="width:200px;">
+		<label for="content_upload">Content Image</label>
 		<input id="content_upload" type="file" name="content_image" class="upload"/> 
 	</span>
-<!-- 	<span class="upload_container style">
-		<label>Style Image</label> -->
+<!-- 	<span class="upload_container style"> -->
+		<label for="style_upload">Style Image</label>
 		<input id="style_upload" type="file" name="style_image" class="upload"/>
-	<!-- </span> -->
-	<span class="button_container">
-		<input type="submit" value="Upload" class="upload submit"><br>
-		<button id="stylize">Stylize!</button>
+<!-- 	</span>
+ -->	<span class="button_container">
+		<input type="submit" value="Stylize!" class="upload submit"><br>
 	</span>
 </form>
 </div>

@@ -7,7 +7,10 @@ from wand.image import Image
 import os
 from styler import Styler_Class
 
-UPLOAD_FOLDER = os.getcwd() + "/uploads/"
+if os.getcwd().endswith("uploads"):
+    UPLOAD_FOLDER = os.getcwd + "/"
+else:
+    UPLOAD_FOLDER = os.getcwd() + "/uploads/"
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 
 app = Flask(__name__)
@@ -21,13 +24,8 @@ def allowed_file(filename):
 def index():
   return render_template('index.html')
 
-@app.route("/stylize", methods=['POST'])
+@app.route('/stylize', methods=['POST'])
 def stylize():
-    styler = Styler_Class()
-    styler.spawnImages()
-
-@app.route('/upload', methods=['POST'])
-def upload():
     upload_types = ["content_image", "style_image"]
     for upload_type in upload_types:
         file = request.files[upload_type]
@@ -35,6 +33,9 @@ def upload():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             os.rename("uploads/" + filename, "uploads/" + upload_type.split("_")[0] + ".jpg")
+    styler = Styler_Class()
+    styler.spawnImages()
+
 
 if __name__ == '__main__':
     app.run(
