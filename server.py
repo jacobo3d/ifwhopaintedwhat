@@ -7,13 +7,14 @@ from wand.image import Image
 import os
 from styler import Styler_Class
 
-if os.getcwd().endswith("uploads"):
-    UPLOAD_FOLDER = os.getcwd + "/"
+if os.getcwd().endswith("static/uploads"):
+    UPLOAD_FOLDER = os.getcwd() + "/"
+    os.chdir(os.getcwd() + "/../../")
 else:
-    UPLOAD_FOLDER = os.getcwd() + "/uploads/"
+    UPLOAD_FOLDER = os.getcwd() + "/static/uploads/"
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path = "", static_folder = "static")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -32,9 +33,11 @@ def stylize():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            os.rename("uploads/" + filename, "uploads/" + upload_type.split("_")[0] + ".jpg")
+            print(os.getcwd())
+            os.rename("static/uploads/" + filename, "static/uploads/" + upload_type.split("_")[0] + ".jpg")
     styler = Styler_Class()
     styler.spawnImages()
+    return render_template('done.html')
 
 
 if __name__ == '__main__':

@@ -12,19 +12,18 @@ class Styler_Class:
 		return
 
 	def spawnImages(self):
-		if (not os.getcwd().endswith("torch/neural-style")):
-			if(os.getcwd().endswith("torch")):
-				os.chdir(os.getcwd() + "neural-style/")
-			else:
-				os.chdir(os.getcwd() + "/torch/neural-style/")
+		if (not os.getcwd().endswith("/neural-style/")):
+			os.chdir(os.getcwd() + "/neural-style/")
+		else:
+			os.chdir(os.getcwd() + "/")
 		os.environ['LD_LIBRARY_PATH'] = "/usr/local/cuda-7.0/lib64:$LD_LIBRARY_PATH"
-		style_fpath = os.getcwd() +  "/../../uploads/style.jpg"
-		content_fpath = os.getcwd() + "/../../uploads/content.jpg"
+		style_fpath = os.getcwd() +  "/../static/uploads/style.jpg"
+		content_fpath = os.getcwd() + "/../static/uploads/content.jpg"
 		subprocess.check_call(["th", "neural_style.lua", "-style_image", style_fpath, "-content_image", content_fpath, "-backend", "cudnn"])
 		
 		image_files = [f for f in os.listdir('.') if (os.path.isfile(f) and f.endswith(".png"))]
 		for file in image_files:
-			shutil.copy(os.getcwd() + "/" + file, "../../output/")
-		os.chdir("../../output/")
+			shutil.copy(os.getcwd() + "/" + file, os.getcwd() + "/../static/output/")
+		os.chdir("../static/output/")
 		os.rename("out.png", "out_999.png") #Rename final image so imagemagick uses it as the last image of the GIF
 		subprocess.check_call(["convert", "-delay", "17", "*.png", "animation.gif"])
