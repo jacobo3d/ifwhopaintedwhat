@@ -1,22 +1,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="static/js/app.js"></script>
-<link rel="stylesheet" href="static/css/index.css">
+<link rel="stylesheet" href="css/index.css">
 
 <header>
-<h1>If Who Painted What</h1>
+	<h1 id="title">If Who Painted What</h1>
 </header>
 
 <div class="upload_container">
 <form action="stylize" method="post" enctype="multipart/form-data">
 	<span class="upload_container content" style="width:200px;">
-		<label for="content_upload">Content Image</label>
+		<label for="content_upload" class="upload_label">Content Image</label>
 		<input id="content_upload" type="file" name="content_image" class="upload"/> 
 	</span>
-<!-- 	<span class="upload_container style"> -->
-		<label for="style_upload">Style Image</label>
+	<span class="upload_container">
+		<label for="style_upload" class="upload_label" >Style Image</label>
 		<input id="style_upload" type="file" name="style_image" class="upload"/>
-<!-- 	</span>
- -->	<span class="button_container">
+	</span><br>
+
+	<div class="style_container">
+		<label>How Much Style?</label><br>
+		<input type="range" min="7" max="17.1" value="11.36"/><br>
+	</div>
+	
+	<span class="button_container">
 		<input type="submit" value="Stylize!" class="upload submit"><br>
 	</span>
 </form>

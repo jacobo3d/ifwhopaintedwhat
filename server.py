@@ -7,11 +7,11 @@ from wand.image import Image
 import os
 from styler import Styler_Class
 
-if os.getcwd().endswith("static/uploads"):
-    UPLOAD_FOLDER = os.getcwd() + "/"
+print(os.getcwd())
+if os.getcwd().endswith("static/uploads") or os.getcwd().endswith("static/output"):
     os.chdir(os.getcwd() + "/../../")
-else:
-    UPLOAD_FOLDER = os.getcwd() + "/static/uploads/"
+print(os.getcwd())
+UPLOAD_FOLDER = os.getcwd() + "/static/uploads/"
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 
 app = Flask(__name__, static_url_path = "", static_folder = "static")

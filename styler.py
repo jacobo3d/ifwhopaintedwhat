@@ -19,7 +19,7 @@ class Styler_Class:
 		os.environ['LD_LIBRARY_PATH'] = "/usr/local/cuda-7.0/lib64:$LD_LIBRARY_PATH"
 		style_fpath = os.getcwd() +  "/../static/uploads/style.jpg"
 		content_fpath = os.getcwd() + "/../static/uploads/content.jpg"
-		subprocess.check_call(["th", "neural_style.lua", "-style_image", style_fpath, "-content_image", content_fpath, "-backend", "cudnn"])
+		subprocess.check_call(["th", "neural_style.lua", "-style_image", style_fpath, "-content_image", content_fpath, "-backend", "cudnn", "-image_size", "768", "-cudnn_autotune"])
 		
 		image_files = [f for f in os.listdir('.') if (os.path.isfile(f) and f.endswith(".png"))]
 		for file in image_files:
