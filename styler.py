@@ -16,7 +16,7 @@ class Styler_Class:
 			os.chdir(os.getcwd() + "/neural-style/")
 		else:
 			os.chdir(os.getcwd() + "/")
-		os.environ['LD_LIBRARY_PATH'] = "/usr/local/cuda-7.0/lib64:$LD_LIBRARY_PATH"
+		# os.environ['LD_LIBRARY_PATH'] = "/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH"
 		style_fpath = os.getcwd() +  "/../static/uploads/style.jpg"
 		content_fpath = os.getcwd() + "/../static/uploads/content.jpg"
 		subprocess.check_call(["th", "neural_style.lua", "-style_image", style_fpath, "-content_image", content_fpath, "-backend", "cudnn", "-image_size", "768", "-cudnn_autotune"])
